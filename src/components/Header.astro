@@ -1,0 +1,27 @@
+---
+import BurgerMenu from "./BurgerMenu.astro";
+---
+
+<header class="header">
+  <div class="logo">
+    <a href="/">
+      <img src="/public/img/planet_logo_purple.webp" alt="Logo" />
+    </a>
+  </div>
+  <BurgerMenu />
+</header>
+
+<style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: black;
+    color: #fff;
+  }
+
+  .logo img {
+    height: 40px;
+  }
+</style>

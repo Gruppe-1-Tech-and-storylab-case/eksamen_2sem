@@ -1,0 +1,53 @@
+---
+import { createClient } from "@supabase/supabase-js";
+
+// Opret Supabase-forbindelse
+const supabase = createClient(
+  "https://ztxzipatdcssuqhtzgkx.supabase.co/",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0eHppcGF0ZGNzc3VxaHR6Z2t4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ0MzYxMDIsImV4cCI6MjA1MDAxMjEwMn0.7VGmxGK5-Qk4Ng8Xn1shGH1eZXtBNIU-p-o40fwiaZI"
+);
+
+// Hent id fra URL-searchParams og sikre, at det ikke er null
+const { id } = Astro.url.searchParams;
+
+if (!id) {
+  throw new Error("Produkt ID er nødvendigt.");
+}
+
+// Hent produktet fra Supabase
+const { data: product, error } = await supabase
+  .from("products")
+  .select("*")
+  .eq("id", id)
+  .single();
+
+if (error || !product) {
+  throw new Error("Produktet kunne ikke findes.");
+}
+---
+
+<article class="product-single">
+  <h1>{product.name}</h1>
+  <p>{product.description}</p>
+  <p>Pris: {product.price}</p>
+  {
+    product.image_path ? (
+      <img src={product.image_path} alt={product.name} />
+    ) : (
+      <p>Ingen billede tilgængeligt.</p>
+    )
+  }
+</article>
+
+<style>
+  .product-single {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .product-single img {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+
+---
+
+<div class="burger-menu">
+  <button class="burger-toggle" id="menu-toggle">☰</button>
+  <nav id="menu" class="menu">
+    <a href="/products">Produkter</a>
+    <a href="/videos">Videoer</a>
+    <a href="/contact">Kontakt</a>
+    <input type="text" placeholder="Søg..." class="search" />
+    <a href="/cart" class="cart">🛒</a>
+  </nav>
+</div>
+
+<style>
+  .burger-menu {
+    position: relative;
+  }
+
+  .burger-toggle {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: black;
+    padding: 1rem;
+    width: 200px;
+    z-index: 10;
+  }
+
+  .menu a,
+  .menu input {
+    margin: 0.5rem 0;
+    color: #c9a3e6;
+    text-decoration: none;
+  }
+
+  .menu .search {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+  }
+
+  .menu .cart {
+    font-size: 1.5rem;
+  }
+</style>
+
+<script type="module">
+  // Håndter menu-toggle
+  const menuToggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu");
+
+  if (menuToggle && menu) {
+    menuToggle.addEventListener("click", () => {
+      if (menu.style.display === "flex") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "flex";
+      }
+    });
+  }
+</script>

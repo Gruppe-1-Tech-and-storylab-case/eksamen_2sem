@@ -1,0 +1,66 @@
+---
+
+import { getAllProducts } from "../scripts/products";
+
+const categoriesToFilter = ["Boards",]; // Replace with desired categories
+const products = await getAllProducts();
+
+console.log(products); // Check all products
+
+// Filter products by the specified categories
+const filteredProducts = products?.filter((product) =>
+  categoriesToFilter.includes(product.category)
+);
+
+console.log(filteredProducts); // Check filtered products
+
+
+---
+
+<section class="product-list">
+  {filteredProducts && filteredProducts.length > 0 ? (
+    filteredProducts.map((product) => (
+        <h3>{product.name}</h3>
+        <p>{product.description}</p>
+        <p>{product.price}</p>
+        <img
+          src={product.imageUrl || "https://www.google.com/imgres?q=placeholder%20image&imgurl=https%3A%2F%2Fwww.svgrepo.com%2Fshow%2F508699%2Flandscape-placeholder.svg&imgrefurl=https%3A%2F%2Fwww.svgrepo.com%2Fsvg%2F508699%2Flandscape-placeholder&docid=9QbaVFfobw8WtM&tbnid=ILb0VdrDiOSHxM&vet=12ahUKEwjb7cz-4LOKAxWDBxAIHRcICBQQM3oECHAQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjb7cz-4LOKAxWDBxAIHRcICBQQM3oECHAQAA"}
+          alt={product.name}
+        />
+    ))
+  ) : (
+    <p>No products found in the selected categories.</p>
+  )}
+</section>
+
+
+<style>
+  .product-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns */
+    grid-template-rows: auto; /* Automatic row adjustment */
+    gap: 20px; /* Space between items */
+  }
+
+  .product-card {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Optional: Card background */
+    text-align: center; /* Center content */
+  }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px; /* Optional: Rounded image corners */
+  }
+
+  .product-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Ensure images fit well */
+  border-radius: 5px;
+}
+
+</style>

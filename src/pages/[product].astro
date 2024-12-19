@@ -1,0 +1,77 @@
+---
+import {
+  getAllProducts,
+  getProductById,
+  getProductImage,
+} from "../scripts/products"; // Importer de nødvendige funktioner
+import Layout from "../layouts/Layout.astro";
+
+// 2. Generer dynamiske ruter
+export async function getStaticPaths() {
+  const products = await getAllProducts(); // Hent alle produkter
+  if (!products || products.length === 0) {
+    return [];
+  }
+
+  return products.map((product) => ({
+    params: { product: product.id.toString() },
+  }));
+}
+
+// 3. Hent specifikt produktdata og billede
+const { params } = Astro.props as { params: { product: string } };
+const product = await getProductById(params.product); // Hent produktdata ved ID
+
+let productImageUrl = null;
+if (product?.image_path) {
+  productImageUrl = await getProductImage(product.image_path); // Hent billede, hvis tilgængeligt
+}
+
+if (!product) {
+  console.error("Produkt ikke fundet.");
+}
+---
+
+<!-- Layout og visning af produktdata -->
+<Layout>
+  <section class="product-single">
+    {
+      product ? (
+        <>
+          <h1>{product.name}</h1>
+          <p>{product.description}</p>
+          <p>Pris: {product.price}</p>
+
+          {productImageUrl ? (
+            <img
+              src={productImageUrl}
+              alt={product.name}
+              class="product-image"
+            />
+          ) : (
+            <p>Ingen billede tilgængeligt</p>
+          )}
+        </>
+      ) : (
+        <p>Produkt ikke fundet.</p>
+      )
+    }
+  </section>
+</Layout>
+
+<!-- CSS -->
+<style>
+  .product-single {
+    padding: 2rem;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #000;
+  }
+
+  .product-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1rem;
+  }
+</style>

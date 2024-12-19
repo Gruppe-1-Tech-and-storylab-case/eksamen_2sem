@@ -1,0 +1,299 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { getAllProducts } from "../scripts/products.js";
+
+// Hent produkter fra Supabase
+const products = await getAllProducts(); // Ændret fra getProductById til getAllProducts
+---
+
+<html lang="da">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+  </head>
+</html>
+
+<Header />
+<main>
+  <!-- Hero Slideshow Sektion -->
+  <section class="hero">
+    <div class="slideshow">
+      <img src="/img/crack_your_city.webp" alt="Slide 1" class="slide active" />
+      <img src="/img/glitch.webp" alt="Slide 2" class="slide" />
+      <img src="/img/stickers.webp" alt="Slide 3" class="slide" />
+    </div>
+  </section>
+
+  <!-- Kategorier Sektion (2x2 Grid) -->
+  <section class="image-grid">
+    <h2>PRODUKTER</h2>
+    <div class="grid">
+      <div class="col1">
+        <img
+          src="https://ztxzipatdcssuqhtzgkx.supabase.co/storage/v1/object/sign/products/boards/boards.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy9ib2FyZHMvYm9hcmRzLndlYnAiLCJpYXQiOjE3MzQ0NDE0MDYsImV4cCI6MTczNzAzMzQwNn0.B-TNTBitKCosxbX4Qv6eZ0BZqb3f9eFrNYfs-uYbhZc&t=2024-12-17T13%3A16%3A46.628Z/"
+          alt="Boards"
+        />
+        <h3>BOARDS</h3>
+      </div>
+      <div class="col2">
+        <img
+          src="https://ztxzipatdcssuqhtzgkx.supabase.co/storage/v1/object/sign/products/tilbehoer/tilbehoer.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy90aWxiZWhvZXIvdGlsYmVob2VyLndlYnAiLCJpYXQiOjE3MzQ0NDE0MTcsImV4cCI6MTczNzAzMzQxN30.GDpchOpW0YowhaKVq60Rab95ti_j6L9zrESzIElhRWA&t=2024-12-17T13%3A16%3A57.972Z"
+          alt="Tilbehør"
+        />
+        <h3>TILBEHØR</h3>
+      </div>
+      <div class="col3">
+        <img
+          src="https://ztxzipatdcssuqhtzgkx.supabase.co/storage/v1/object/sign/products/toej/toej.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy90b2VqL3RvZWoud2VicCIsImlhdCI6MTczNDQ0MTIwNSwiZXhwIjoxNzM3MDMzMjA1fQ.ew4q8j4dGfqFgNY20XqH1rznK1oHWzAP5SL47STgQJg&t=2024-12-17T13%3A13%3A25.517Z"
+          alt="Tøj"
+        />
+        <h3>TØJ</h3>
+      </div>
+      <div class="col4">
+        <img
+          src="https://ztxzipatdcssuqhtzgkx.supabase.co/storage/v1/object/sign/products/accessories/accessories.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy9hY2Nlc3Nvcmllcy9hY2Nlc3Nvcmllcy53ZWJwIiwiaWF0IjoxNzM0NDQxNDI5LCJleHAiOjE3MzcwMzM0Mjl9.pVZN5-PhHpHdB1R0ruIcmDYbDNP26qT4TlhHBvMkZWU&t=2024-12-17T13%3A17%3A09.576Z"
+          alt="Accessories"
+        />
+        <h3>ACCESSORIES</h3>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Video Sektion -->
+<div class="video-container">
+  <iframe
+    class="video"
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/enIcZBVPzmg?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&fs=0&modestbranding=1"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  >
+  </iframe>
+</div>
+<Footer />
+
+<!-- JavaScript til slideshow -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }
+
+    setInterval(showNextSlide, 3000); // Skifter hvert 3. sekund
+  });
+</script>
+
+<!-- CSS -->
+<style>
+  /* Hero Slideshow */
+  .hero {
+    position: relative; /* Holder slideshowet i flowet */
+    width: 100%vh; /* Fylder hele bredden */
+    height: 80vh; /* Slideshowet fylder halvdelen af viewport-højden */
+    overflow: hidden; /* Skjuler alt uden for containeren */
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .slideshow {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Skalerer billedet uden at strække det */
+    opacity: 0; /* Starter med at skjule billederne */
+    transition: opacity 1s ease-in-out;
+    z-index: 1; /* Sørger for, at billeder vises */
+  }
+
+  .slide.active {
+    opacity: 1; /* Gør det aktive billede synligt */
+    z-index: 2; /* Sørger for, at det aktive billede vises øverst */
+  }
+
+  .image-grid {
+    text-align: center; /* Optional: Center-align text */
+    width: 90%;
+    max-width: 600px; /* Limit maximum width */
+    margin: 0 auto; /* Center the section on the page */
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns */
+    grid-template-rows: auto auto; /* Adjust rows automatically */
+    gap: 20px; /* Space between grid items */
+  }
+
+  .grid div {
+    text-align: center; /* Center the text for each item */
+  }
+
+  .grid img {
+    width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: Rounded corners */
+  }
+
+  .col1 {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .col2 {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .col3 {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .col4 {
+    grid-row: 2;
+    grid-column: 2;
+  }
+
+  /* Video Sektion */
+  .video-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .video {
+    width: 100%; /* Optional: Adjust the iframe to fit the container */
+    max-width: 560px; /* Maintain a reasonable max size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .video-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .video {
+    width: 100%; /* Optional: Adjust the iframe to fit the container */
+    max-width: 560px; /* Maintain a reasonable max size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .video-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .video {
+    width: 100%; /* Optional: Adjust the iframe to fit the container */
+    max-width: 560px; /* Maintain a reasonable max size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .video-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .video {
+    width: 100%; /* Optional: Adjust the iframe to fit the container */
+    max-width: 560px; /* Maintain a reasonable max size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .video-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .video {
+    width: 100%; /* Optional: Adjust the iframe to fit the container */
+    max-width: 560px; /* Maintain a reasonable max size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .video-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .video {
+    width: 100%; /* Optional: Adjust the iframe to fit the container */
+    max-width: 560px; /* Maintain a reasonable max size */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .video-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .video {
+    width: 100%; /* Optional: Adjust the iframe to fit the container */
+    max-width: 800px; /* Maintain a reasonable max size */
+    height: 100%; /* Maintain aspect ratio */
+  }
+
+  html {
+    background-color: black;
+  }
+
+  h3 {
+    color: turquoise;
+    font-family: "exo 2";
+  }
+
+  h2 {
+    color: turquoise;
+    font-family: "Orbitron";
+    text-align: center;
+  }
+</style>
